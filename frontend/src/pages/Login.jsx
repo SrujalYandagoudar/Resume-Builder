@@ -3,12 +3,24 @@ import { useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const route = useNavigate();
+
+    useEffect(() => {
+      const isToken = () => {
+        if(localStorage.getItem('authtoken')){
+            route('/dashboard')
+        }
+      } 
+
+      isToken()
+    }, [])
+    
 
     const handleSubmitLogin = async(e) =>{
         try{
