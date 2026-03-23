@@ -1,9 +1,14 @@
 @import 'tailwindcss';
 
 
-#Login{
-     background-image: url('/images/Earth.jpg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            color: white;
+
+
+#home, #login, #signup{
+     background-image: url('/images/background.png');
+     background-size: cover;
+     background-repeat: no-repeat;
+}
+
+button{
+     cursor: pointer;
 }

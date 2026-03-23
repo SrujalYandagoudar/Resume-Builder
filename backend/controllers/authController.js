@@ -4,13 +4,13 @@ import { genrateToken } from "../utils/genrateToken.js";
 
 export async function login(req, res) {
     try{
-        const {username, password} = req.body;
+        const {email, password} = req.body;
 
-        const exist = await User.findOne({username});
+        const exist = await User.findOne({email});
         if(!exist) return res.status(404).json({message:'User Not Exist Plase Signup'});
 
-        const check = await User.findOne({username, password});
-        if(!check) return res.status(400).json({message:'Username and Password Not Matching!'});
+        const check = await User.findOne({email, password});
+        if(!check) return res.status(400).json({message:'Email and Password Not Matching!'});
 
          const token = genrateToken(check);
         res.cookie('token', token, {
@@ -38,16 +38,7 @@ export async function signup(req, res) {
         const newUser = await User.create({username, password, email});
         await newUser.save();
 
-        const token = genrateToken(newUser);
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: false,
-            sameSite: 'lax',
-                path: "/",
-            maxAge: 24*60*60*1000
-        }) 
-
-        return res.status(200).json({message:'Signup Successfully', token});
+        return res.status(200).json({message:'Signup Successfully'});
 
 
     }catch(err){
